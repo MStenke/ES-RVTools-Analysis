@@ -317,7 +317,7 @@ def generate_vStorage_overview_df(df_vDisk_filtered,df_vPartition_filtered,df_vD
     ## VM Storage Auswertung
     ########################
     # Get VMs not in vPartition, get Disk for thoise vms and calculate Size for those missing disks
-    VMs_not_in_vPartition_with_duplicates = pd.merge(df_vDisk_filtered[['VM ID']],df_vPartition_filtered[['VM ID']],on='VM ID', how='left', indicator=True).query("`_merge`=='left_only'").drop("_merge", inplace=True)
+    VMs_not_in_vPartition_with_duplicates = pd.merge(df_vDisk_filtered[['VM ID']],df_vPartition_filtered[['VM ID']],on='VM ID', how='left', indicator=True).query("`_merge`=='left_only'").drop(['_merge'], 1)
     VMs_not_in_vPartition_unique = VMs_not_in_vPartition_with_duplicates.drop_duplicates(subset=['VM ID'])
     vDisks_not_in_vPartition = pd.merge(VMs_not_in_vPartition_unique[['VM ID']],df_vDisk_filtered[['Powerstate', 'Capacity MiB', 'VM ID']],on='VM ID', how='inner', indicator=True).query("`_merge`=='both'").drop("_merge", 1)
     vDisk_for_VMs_not_in_vPartition_filtered_on = vDisks_not_in_vPartition.query("`Powerstate`=='poweredOn'")
