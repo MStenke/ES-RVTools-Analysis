@@ -86,8 +86,7 @@ with upload_filter_section:
                     analysis_section.markdown("---")
                     analysis_section.markdown("Im folgenden die genaue Fehlermeldung für ein Troubleshooting:")
                     analysis_section.exception(e)
-                    st.session_state[uploaded_file.name] = True 
-                    custom_functions.send_slack_message_and_set_session_state('RVTools ERROR: '+str(e.args),uploaded_file)
+                    st.session_state[uploaded_file.name] = True
 
 if uploaded_file is not None and uploaded_file_valid is True and len(vCluster_selected) != 0:
 
